@@ -27,5 +27,6 @@ int* solution(int arr[], size_t arr_len, bool flag[], size_t flag_len) {
            }
         }
     }
+    answer = (int*)realloc(answer,index*sizeof(int));
     return answer;
 }
