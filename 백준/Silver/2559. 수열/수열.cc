@@ -1,30 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
-int N,K;
+
+int N,K,temp,psum[100004], ret = - 10000004;
 
 int main()
 {
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    cin >> N;
-    cin >> K;
-    vector<int> arr(N);
-    for(int i = 0 ; i <N;i++)
+    cin >> N >> K;
+    for(int i = 1 ; i <= N ; i++)
     {
-        cin >> arr[i];
-        
+        cin >> temp; psum[i] = psum[i-1] + temp;
     }
-    int window_sum = 0;
-    for(int i =0 ;  i< K;i++)
+
+    for(int i = K ; i <= N ; i++)
     {
-        window_sum += arr[i];
+            ret = max(ret, psum[i] - psum[i - K]);   
     }
-    int max_sum = window_sum;
-    
-    for(int i = K; i < N; i++)
-    {
-        window_sum += arr[i] - arr[i - K];
-        max_sum = max(max_sum, window_sum);
-    }
-    cout <<max_sum;
+    cout << ret ;
+
     return 0;
 }
