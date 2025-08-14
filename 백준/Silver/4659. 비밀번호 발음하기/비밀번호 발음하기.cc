@@ -4,7 +4,10 @@ using namespace std;
 string s;
 char vowels[] = {'a','e','i','o','u'};
 int qualpass, ret;
-
+int checkVowel(char c)
+{
+    return(c == 'a' ||c == 'e' ||c == 'i' ||c == 'o' ||c == 'u');
+}
 int main()
 {
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
@@ -24,41 +27,28 @@ int main()
        int qualpass = 0;
        int vocnt = 0 , cocnt = 0;
        char prew = ' ';
-       bool preIsVowel = false;
-       bool isStrat =true;
        bool qualIsgood =true;
+       bool isVowelIn = false;
        for(char i : s)
        {
-            bool isVowel = false;
            //Check 1
            //1. 모음(a,e,i,o,u) 하나를 반드시 포함하여야 한다.
-            for(int j = 0; j < 5; j++)
+            if(checkVowel(i)) 
+            {     
+                vocnt++;
+                cocnt = 0;
+                isVowelIn = true;
+            }
+            else
             {
-                if(vowels[j] ==  i) 
-                {   cnt++;
-                    isVowel = true;
-                }
+                cocnt++;
+                vocnt = 0;
             }
             //Check 2
             //2. 모음이 3개 혹은 자음이 3개 연속으로 오면 안 된다.
-            if(preIsVowel == true&& isVowel == true && !isStrat)
-            {
-                vocnt++;
-            }
-            else{
-                vocnt = 0;
-            }
-
-            if(preIsVowel == false&& isVowel == false && !isStrat) 
-            {
-                cocnt++;
-            } 
-            else
-            {
-                cocnt = 0;
-            }
+           
             //cout <<"word = "<< i <<", vocnt = " << vocnt<< ", cocnt = " << cocnt << "\n";
-            if(vocnt >=2 || cocnt >=2)
+            if(vocnt >=3 || cocnt >=3)
             {
                 qualIsgood = false;
                 //cout <<"hihi\n";
@@ -76,14 +66,13 @@ int main()
             }
             
             prew = i;
-            preIsVowel = isVowel;
-            isStrat =false;
+
             //cout << "cnt = " << cnt << "\n";
             //cout << "vocnt = " << vocnt<< ", cocnt = " << cocnt << "\n";
 
        }
 
-       if(cnt > 0 && qualIsgood)
+       if(isVowelIn && qualIsgood)
        {
             qualpass = 1;
        }
