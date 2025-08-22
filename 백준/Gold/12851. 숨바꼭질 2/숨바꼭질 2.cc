@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int MAX = 200000;
+const int MAX = 100000;
 int visited[MAX+4];
 long long cnt[MAX+4];
 
